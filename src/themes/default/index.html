@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--<base href="//s3-us-west-2.amazonaws.com/shelloid-web/public/" />-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="Shelloid sample app using real-time NYC traffic data.">
+    <meta name="title" content="">
+    <meta name="author" content="">
+    <meta name="keywords"
+          content="Shelloid, real-time, big data, IoT, Internet of things, traffic feed">
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+
+    <title>Shelloid NYC real-time traffic sample</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <link href="js/toast/jquery.toast.css" rel="stylesheet">
+	<link href="css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/toast/jquery.toast.js"></script>
+	<script src="js/jquery.dataTables.min.js"></script>
+
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        ul.ok {
+            list-style-type: none;
+            margin-left: 0;
+            padding-left: 1em;
+        }
+
+        ul.ok li:before {
+            font-family: 'FontAwesome';
+            content: '\f00c';
+            margin: 0 5px 0 -15px;
+            color: #008082;
+        }
+
+        ul.ok li {
+            margin-bottom: 1ex
+        }
+
+        .grad {
+            /* fallback */
+            background-color: #f1f1f1;
+
+            /* Safari 4-5, Chrome 1-9 */
+            background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#f1f1f1));
+
+            /* Safari 5.1, Chrome 10+ */
+            background: -webkit-linear-gradient(top, white, #f1f1f1);
+
+            /* Firefox 3.6+ */
+            background: -moz-linear-gradient(top, white, #f1f1f1);
+
+            /* IE 10 */
+            background: -ms-linear-gradient(top, white, #f1f1f1);
+
+            /* Opera 11.10+ */
+            background: -o-linear-gradient(top, white, #f1f1f1);
+
+            background: linear-gradient(top, white, #f1f1f1);
+        }
+
+        .stdtxt {
+            color: #008082;
+            font-size: 14pt
+        }
+
+        .sharptxt {
+            color: #243842;
+        }
+
+        input {
+            border-radius: 5px
+        }
+
+        ::-webkit-input-placeholder {
+            color: #008082;
+            font-weight: normal
+        }
+
+        :-moz-placeholder {
+            /* Firefox 18- */
+            color: #008082;
+            font-weight: normal
+        }
+
+        ::-moz-placeholder {
+            /* Firefox 19+ */
+            color: #008082;
+            font-weight: normal
+        }
+
+        :-ms-input-placeholder {
+            color: #008082;
+        }
+    </style>
+    <script>
+        var JSON = JSON || {};
+
+        JSON.stringify = JSON.stringify || function (obj) {
+            var t = typeof (obj);
+            if (t != "object" || obj === null) {
+                // simple data type
+                if (t == "string") obj = '"' + obj + '"';
+                return String(obj);
+            }
+            else {
+                // recurse array or object
+                var n, v, json = [], arr = (obj && obj.constructor == Array);
+                for (n in obj) {
+                    v = obj[n];
+                    t = typeof(v);
+                    if (t == "string") v = '"' + v + '"';
+                    else if (t == "object" && v !== null) v = JSON.stringify(v);
+                    json.push((arr ? "" : '"' + n + '":') + String(v));
+                }
+                return (arr ? "[" : "{") + String(json) + (arr ? "]" : "}");
+            }
+        };
+
+        function showToast(msg) {
+            //type: danger info success
+            var options = {duration: 3000, sticky: false, type: "info"};
+            $.toast(msg, options);
+        }
+    </script>
+</head>
+<!--/head-->
+<body class="grad">
+<center>
+    <a href="http://shelloid.com">
+	<img src="images/shelloid-logo-transparent.png" style="vertical-align:bottom"> 
+	</a>
+	<span style="vertical-align:bottom"><font size="+2">Real-time NYC Traffic: Fast Streets</font> 
+	</span>
+	<br/>
+	[Real-time list of NYC streets with speeds greater than current average NYC speed]
+</center>
+
+
+    <div class="container">
+        <ul class="nav nav-tabs" id="myTab">
+            <li class="active"><a href="#users" data-toggle="tab" id="usersTabLink">Users</a></li>
+        </ul>
+        <div class="tab-content" style="padding-bottom: 30px; min-height: 300px">
+            <div class="tab-pane active" id="users">
+                <div class="container" id="users_tab">
+				<table id="users_table" class="hover" cellspacing="5px" width="100%">
+						<thead>
+							<tr>
+								<th>Mean Diff Speed</th>
+								<th>Speed</th>
+								<th>Travel Time</th>
+								<th>Link Name</th>
+								<th>Borough</th>
+								<th>Data as of (NY time)</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+				 
+	<!--					<tfoot>
+							<tr>
+								<th>Email</th>
+								<th>Name</th>
+								<th>Registered at</th>
+								<th>Verified?</th>
+								<th>Who invited?</th>
+							</tr>
+						</tfoot>-->
+					</table>				
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<br/>
+
+	<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<script>
+var $ = jQuery;
+var baseUrl = "/stream/nyc-traffic/fastStreets";
+var tag = null;
+$(document).ready(function() {
+    var dt = $('#users_table').DataTable( {
+	 "ajax": {
+		"url": baseUrl,
+		"dataSrc": function ( json ) {
+			var data = [];
+		  for ( var i=0, ien=json.data.length ; i<ien ; i++ ) {
+			var rec = [
+				json.data[i]["MeanDiffSpeed"],
+				json.data[i]["Speed"],
+				json.data[i]["TravelTime"],
+				json.data[i]["linkName"],
+				json.data[i]["Borough"],
+				json.data[i]["DataAsOf"]
+			];
+			data.push(rec);
+		  }
+		  return data;
+		}
+	  }
+  
+    } );
+	var reloadFn = function(data){
+		var url = baseUrl;
+		tag = data ? data.tag : null;
+		if(tag){
+			url = url + "?tag="+tag;
+		}
+		console.log("Sending reload request to: " + url);
+		dt.ajax.url(url);
+		dt.ajax.reload(reloadFn);
+	}
+	reloadFn();
+} );
+</script>
+</body>
+</html>
