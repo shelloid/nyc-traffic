@@ -159,7 +159,8 @@
 	<a 
 	href="code.html"
 	target="_code"
-	class="udot"> Click here to see the annotated code.</a>
+	class="udot"> Click here</a> to see how shelloid simplifies creating real-time data streams. <br/>
+	<a href="https://github.com/shelloid/nyc-traffic" target="_github" class="udot">Click here</a> to view the project at Github.
 	</font>
 </center>
 
@@ -232,6 +233,7 @@ var baseUrl = "/stream/nyc-traffic/fastStreets";
 var tag = null;
 $(document).ready(function() {
     var dt = $('#users_table').DataTable( {
+	"order": [[ 0, "desc" ]],
 	 "ajax": {
 		"url": baseUrl,
 		"dataSrc": function ( json ) {
