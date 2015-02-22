@@ -236,6 +236,10 @@ $(document).ready(function() {
 	"order": [[ 0, "desc" ]],
 	 "ajax": {
 		"url": baseUrl,
+	"error": function(reason) {
+            console.log("Datatable ajax error. ", reason);
+            setTimeout(reloadFn, 1000);
+        },		
 		"dataSrc": function ( json ) {
 			var data = [];
 		  for ( var i=0, ien=json.data.length ; i<ien ; i++ ) {
