@@ -11,8 +11,9 @@
 )
 
 (service meanDiff [data src-name res-name]
-	(let [sum (reduce #(+ %1 (%2 src-name)) 0 data)
-		 mean (/ sum (count data))
+	(let [sum  (reduce #(+ %1 (%2 src-name)) 0 data)
+		 n 	  (count data)
+		 mean (if (> n 0) (/ sum n) 0)
 		]
 		(into [] 
 			(map #(assoc % res-name (- (% src-name) mean)) 
