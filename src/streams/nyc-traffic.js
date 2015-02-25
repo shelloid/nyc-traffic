@@ -1,6 +1,7 @@
 /**
 @noauth
-@stream.sdl select: Speed, TravelTime, DataAsOf, Borough, linkName, meanDiff(Speed) as MeanDiffSpeed;
+@stream.sdl select: Speed, TravelTime, DataAsOf, Borough,
+                    linkName, meanDiff(Speed) as MeanDiffSpeed;
 			from: nycTraffic.linkspeed;
 			where: MeanDiffSpeed >= $threshold;
 			sample: 10000
