@@ -17,4 +17,23 @@ exports.fastStreetsInit = function(streamDef, done){
 	done();
 }
 
+/**
+@noauth
+@stream.sdl let: diff(Speed) as DiffSpeed;
+			select: Speed, TravelTime, DataAsOf, Borough,
+                    linkName, meanDiff(DiffSpeed) as MeanDiff2Speed;
+            from: nycTraffic.linkspeed;
+            where: MeanDiff2Speed > $threshold;
+            sample: 10000
+@stream.init trendingStreetsInit
+@stream.edgeTriggered
+*/
+exports.trendingStreets = function(data, streamInstance){
+	console.log("NYC Trending Streets update.");
+}
+
+exports.trendingStreetsInit = function(streamDef, done){
+	streamDef.newInstance({$threshold:0}, "global");
+	done();
+}
 
