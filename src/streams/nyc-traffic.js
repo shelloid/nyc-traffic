@@ -19,7 +19,7 @@ exports.fastStreetsInit = function(streamDef, done){
 
 /**
 @noauth
-@stream.sdl let: diff(Speed) as DiffSpeed;
+@stream.sdl let: prev(Speed) as PrevSpeed, diff(Speed, PrevSpeed) as DiffSpeed;
 			select: Speed, TravelTime, DataAsOf, Borough,
                     linkName, meanDiff(DiffSpeed) as MeanDiff2Speed;
             from: nycTraffic.linkspeed;
