@@ -14,7 +14,7 @@ exports.fastStreets = function(data, streamInstance){
 
 exports.fastStreetsInit = function(streamDef, done){
 	streamDef.newInstance({$threshold:0}, "global");
-	streamDef.addTransport();
+	streamDef.addTransport();//add def-scoped transport
 	done();
 }
 
