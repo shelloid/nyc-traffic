@@ -276,7 +276,10 @@ $(document).ready(function() {
 		}
 		console.log("Sending reload request to: " + url);
 		dt.ajax.url(url);
-		dt.ajax.reload(reloadFn);
+		
+		setTimeout(function(){
+			dt.ajax.reload(reloadFn);
+		}, 1000);		
 	}
 	reloadFn();
 	
